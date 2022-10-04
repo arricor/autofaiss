@@ -20,11 +20,14 @@ def compute_fast_metrics(
     index: faiss.Index,
     omp_threads: Optional[int] = None,
     query_max: Optional[int] = 1000,
+    index_size : int = 0
 ) -> Dict:
     """compute query speed, size and reconstruction of an index"""
     infos: Dict[str, Union[str, int, float]] = {}
-
-    size_bytes = get_index_size(index)
+    if index_size == 0:
+        size_bytes = get_index_size(index)
+    else:
+        size_bytes = index_size
     infos["size in bytes"] = size_bytes
 
     if isinstance(embedding_reader, EmbeddingReader):

@@ -510,12 +510,14 @@ def score_index(
     output_index_info_path: str = "infos.json",
     current_memory_available: str = "32G",
     verbose: int = logging.INFO,
+    index_size: int = 0
 ) -> Optional[Dict[str, Union[str, float, int]]]:
     """
     Compute metrics on a given index, use cached ground truth for fast scoring the next times.
 
     Parameters
     ----------
+    index_size : float size of the index
     index_path : Union[str, faiss.Index]
         Path to .index file. Or in memory index
     embeddings: Union[str, np.ndarray]
@@ -563,7 +565,7 @@ def score_index(
     infos: Dict[str, Union[str, float, int]] = {}
 
     with Timeit("Compute fast metrics"):
-        infos.update(compute_fast_metrics(embedding_reader, index))
+        infos.update(compute_fast_metrics(embedding_reader, index, index_size))
 
     logger.info("Intermediate recap:")
     _log_output_dict(infos)
