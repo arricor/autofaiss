@@ -565,7 +565,7 @@ def score_index(
     infos: Dict[str, Union[str, float, int]] = {}
 
     with Timeit("Compute fast metrics"):
-        infos.update(compute_fast_metrics(embedding_reader, index, index_size))
+        infos.update(compute_fast_metrics(embedding_reader, index, index_size = index_size))
 
     logger.info("Intermediate recap:")
     _log_output_dict(infos)
